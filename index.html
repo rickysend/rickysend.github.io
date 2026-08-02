@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ricky — I build small tools and direct AI coding agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== Design: light "instrument panel" =====
+     Cool gray background, monospace labels, one live clock.
+     Echoes the dashboard project; reads as tools, not a decorated resume. */
+  :root {
+    --bg: #eef1f4;          /* page background */
+    --panel: #ffffff;       /* card background */
+    --border: #d5dbe2;      /* subtle card borders */
+    --ink: #1c2733;         /* main text */
+    --muted: #5b6b7a;       /* secondary text */
+    --accent: #0f6f5c;      /* the one accent colour (deep teal) */
+    --focus: #0f6f5c;       /* keyboard focus ring */
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ===== Header / signature clock ===== */
+  header {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  #clock {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    font-weight: 500;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  #date {
+    margin-top: 0.4rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    margin-top: 1.75rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .tagline {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+
+  /* ===== Sections ===== */
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  h2 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .intro p {
+    color: var(--ink);
+  }
+
+  /* ===== Project cards ===== */
+  .project {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.25rem 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .project:last-child {
+    margin-bottom: 0;
+  }
+
+  .project h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .project p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .project a {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .project a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ===== "How I work with agents" ===== */
+  .agent-item {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .agent-item:first-of-type {
+    padding-top: 0;
+  }
+
+  .agent-item:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .agent-item h3 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .agent-item p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* ===== Links ===== */
+  .links a {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.95rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .links a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* ===== Keyboard focus ===== */
+  a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ===== Narrow screens ===== */
+  @media (max-width: 480px) {
+    body {
+      padding: 1.5rem 0.75rem 3rem;
+    }
+    section {
+      padding: 1.5rem 1.1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <header>
+      <time id="clock">--:--:--</time>
+      <p id="date"></p>
+      <h1>Ricky</h1>
+      <p class="tagline">I build small tools and direct AI coding agents.</p>
+    </header>
+
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">Intro</h2>
+      <p>I'm learning development by building small, useful things. I work with AI coding agents deliberately rather than accidentally — I direct them, and I check their work before I trust it.</p>
+    </section>
+
+    <section aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+
+      <div class="project">
+        <h3>Personal dashboard</h3>
+        <p>A single-file dashboard with a clock, to-do list, bookmarks, notes, and live weather. Built with an AI agent in one evening.</p>
+        <a href="PLACEHOLDER">View the dashboard</a>
+      </div>
+
+      <div class="project">
+        <h3>Funny Cats</h3>
+        <p>A page that pulls random cat images from TheCatAPI, with a fallback for when the API is unreachable.</p>
+        <a href="https://rickysend.github.io/funny-cats/">View Funny Cats</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="agents-title">
+      <h2 id="agents-title">How I work with agents</h2>
+
+      <div class="agent-item">
+        <h3>Rules over corrections</h3>
+        <p>I write agent rules after watching the same mistake twice, not before. A rule that comes from a real failure is one the agent will actually follow.</p>
+      </div>
+
+      <div class="agent-item">
+        <h3>Verify, then report</h3>
+        <p>I check DevTools and terminal output myself, so my bug reports tell the agent what I already ruled out. That narrows the search before the agent starts.</p>
+      </div>
+
+      <div class="agent-item">
+        <h3>Commit before every change</h3>
+        <p>Git and checkpoints are two separate undo systems, and I use both. A bad change is reversible, which makes experimenting cheap.</p>
+      </div>
+    </section>
+
+    <section class="links" aria-labelledby="links-title">
+      <h2 id="links-title">Links</h2>
+      <a href="https://github.com/rickysend">github.com/rickysend</a>
+    </section>
+  </main>
+
+<script>
+  /* ===== Live clock — the signature element ===== */
+  const clockEl = document.getElementById("clock");
+  const dateEl = document.getElementById("date");
+
+  function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, "0");
+    const mm = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+    clockEl.textContent = hh + ":" + mm + ":" + ss;
+    dateEl.textContent = now.toLocaleDateString(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
